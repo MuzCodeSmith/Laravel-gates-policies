@@ -1,0 +1,1 @@
+<h1>Home</h1><?php /**PATH D:\xampp\htdocs\gates-policies\resources\views/home.blade.php ENDPATH**/ ?>
