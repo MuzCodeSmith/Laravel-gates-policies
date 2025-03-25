@@ -64,11 +64,21 @@
         <ul>
             <li>Home</li>
             <li>
-                <a href="{{route('users.posts.create',['user' => Auth::id()])}}">create post</a>
+                <a href="{{route('users.posts.create',['user' =>Auth::check() ?  Auth::id() : 'Guest' ])}}">create post</a>
             </li>
             <li>
-                <a href="{{route('user.posts.all',['user' => Auth::id()])}}">your posts</a>
+                <a href="{{route('user.posts.all',['user' => Auth::check() ? Auth::id() : 'Guest'])}}">your posts</a>
             </li>
+            @can('isAdmin')
+            <li>
+                <a href="{{route('user.posts.all',['user' => Auth::check() ? Auth::id() : 'Guest'])}}">Manage Users</a>
+            </li>
+            @endcan
+            <!-- @cannot('isAdmin')
+            <li>
+                <a href="{{route('user.posts.all',['user' => Auth::check() ? Auth::id() : 'Guest'])}}">Manage Admins</a>
+            </li>
+            @endcannot -->
             <li>Settings</li>
             <li>
                 <a href="{{route('auth.logout-user')}}">Logout</a>

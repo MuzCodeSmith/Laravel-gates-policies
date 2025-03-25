@@ -16,7 +16,7 @@ class PostController extends Controller
         if (!Gate::allows('view-user-posts', $id)) {
             abort(403, 'Unauthorized access.');
         }
-        $posts = Post::where('user_id', $id)->get();; 
+        $posts = Post::get();
 
         return view('user.list-posts',compact('posts'));
     }
@@ -34,13 +34,30 @@ class PostController extends Controller
             'user_id'=>$id
         ]);
 
-        return redirect()->route('utils.dashboard');
+        return redirect()->route('user.posts.all',$id)->with('success', 'Post Created Successfully');
 
     }
 
     function edit($postId){
-        $post = Post::where('id', $postId)->get();
-       
-        return view('user.edit-post',['userWithPost'=>$post]);
+        $userWithPost = Post::with('user')->find($postId);
+        if (!Gate::allows('edit-user-posts', $userWithPost)) {
+            abort(403, 'Unauthorized access.');
+        }
+        return view('user.edit-post',compact('userWithPost'));
+    }
+
+    function update($postId,Request $request){
+        // return $request;
+        $post = Post::find($postId);
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->save();
+        return redirect()->route('user.posts.all',$post->user_id)->with('success', 'Post Updated Successfully');
+    }
+
+    function destroy($postId){
+        $post=Post::find($postId);
+        $status=$post->destroy($postId);
+        return redirect()->route('user.posts.all',$post->user_id)->with('success', 'Post Deleted Successfully');
     }
 }

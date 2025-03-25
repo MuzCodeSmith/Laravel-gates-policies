@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
+
+@extends('layout.layout')
+
+@section('styles')
 <style>
     * {box-sizing: border-box}
 
@@ -83,39 +79,29 @@
     text-align: center;
     }
 </style>
-<body>
-  <!-- <div style="position:absolute; right: 30px; top:30px" >
-      @if(Session::has('error'))
-        <p class="alert alert-danger" role="alert"  >{{ Session::get('error') }}</p>
-      @endif
-  </div>
-  <div style="position:absolute; right: 30px; top:30px" >
-    @if(Session::has('success'))
-      <p class="alert alert-success" role="alert"  >{{ Session::get('success') }}</p>
-    @endif
-  </div> -->
-<form action="{{route('users.posts.store',['user' => Auth::id()])}}"  method="POST" class="form-box">
-    @csrf
+@endsection('styles')
+@section('content')
+
   <div class="container">
-    <label for="title"><b>Title</b></label>
-    <input type="text" placeholder="Enter Title" value="{{ old('title')}}" name="title" id="title" >
-    @if ($errors->has('title'))
-    <span class="error">{{ $errors->first('title') }}</span>
-    <br>
-    <br>
-    @endif
 
-    <label for="content"><b>Content</b></label>
-    <textarea value="{{ old('content')}}"  name="content" id="content"></textarea>
-    @if ($errors->has('content'))
-    <span class="error">{{ $errors->first('content') }}</span>
-    <br>
-    <br>
-    @endif
+  <x-Form action="{{route('users.posts.store',['user' => Auth::id()])}}"  method="POST">
+    <x-container>
+      <label for="title"><b>Title</b></label>
+      <input type="text" placeholder="Enter Title" value="{{ old('title')}}" name="title" id="title" >
+      @if ($errors->has('title'))
+      <span class="error">{{ $errors->first('title') }}</span>
+      <br>
+      <br>
+      @endif
 
-    <button type="submit" class="registerbtn">Create Post</button>
-  </div>
-  
-</form>
-</body>
-</html>
+      <label for="content"><b>Content</b></label>
+      <textarea value="{{ old('content')}}"  name="content" id="content"></textarea>
+      @if ($errors->has('content'))
+      <span class="error">{{ $errors->first('content') }}</span>
+      <br>
+      <br>
+      @endif
+      <x-primaryButton label="Create Post"/>
+  </x-container>
+</x-Form>
+@endsection

@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Admin - Sign up</title>
-</head>
+@extends('layout.layout')
+
+@section('styles')
 <style>
     * {box-sizing: border-box}
 
@@ -47,7 +42,7 @@
 
     /* Set a style for the submit/register button */
     .registerbtn {
-    background-color: #0D92F4;
+    background-color: #04AA6D;
     color: white;
     padding: 10px 20px;
     margin: 8px 0;
@@ -75,55 +70,40 @@
     text-align: center;
     }
 </style>
-<body>
-<div style="position:absolute; right: 30px; top:30px" >
-    
-</div>
-<form href="{{route('auth.register-user')}}" method="POST" class="form-box">
-    @csrf
-  <div class="container"> 
-    <h2 style="text-align:center" > Register</h2>
-    <p style="text-align:center"  >Please fill in this form to create an account.</p>
-    <hr>
-    <label for="name"><b>Username</b></label>
-    <input type="text" placeholder="Enter Name" value="{{ old('name')}}" name="name" id="name">
-    @if ($errors->has('name'))
-    <span class="error">{{ $errors->first('name') }}</span>
-    <br>
-    <br>
-    @endif
+@endsection
 
-    <label for="email"><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" value="{{ old('email')}}" name="email" id="email" >
-    @if ($errors->has('email'))
-    <span class="error">{{ $errors->first('email') }}</span>
-    <br>
-    <br>
-    @endif
+@section('content')
+  <div style="position:absolute; right: 30px; top:30px" >
+      @if(Session::has('error'))
+            <p class="alert alert-danger" role="alert"  >{{ Session::get('error') }}</p>
+          @endif
+      </div>
+      <div style="position:absolute; right: 30px; top:30px" >
+      @if(Session::has('success'))
+        <p class="alert alert-success" role="alert"  >{{ Session::get('success') }}</p>
+      @endif
+  </div>  
+             
+  <x-Form action="{{route('auth.register-user')}}" method="POST" >
+    <x-container>
+      <h2 style="text-align:center" > Register</h2>
+      <p style="text-align:center"  >Please fill in this form to create an account.</p>
+      <hr>
 
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" value="{{ old('password')}}"  name="password" id="password" >
-    @if ($errors->has('password'))
-    <span class="error">{{ $errors->first('password') }}</span>
-    <br>
-    <br>
-    @endif
+      <x-input-field type="text" placeholder="enter username" name="name" id="name" label="Username" value="{{ old('name')}}" />
+      <x-input-field type="text" placeholder="Enter Email" name="email" id="email" label="Email" value="{{ old('email')}}" />
+      <x-input-field type="password" placeholder="Enter Password" name="password" id="password" label="Password" value="{{ old('password')}}" />
+      <x-input-field type="password" placeholder="Confirm Password" name="password_confirmation" id="confirm_password" label="Confirm Password" value="{{ old('password_confirmation')}}" />
+      
+      <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+      <x-primaryButton label="Register"/>
+    </x-container>
 
-    <label for="psw-repeat"><b>Confirm Password</b></label>
-    <input type="password" placeholder="Confirm Password" value="{{ old('password_confirmation')}}"  name="password_confirmation" id="confirm_password" >
-    @if ($errors->has('password_confirmation'))
-    <span class="error">{{ $errors->first('password_confirmation') }}</span>
-    <br>
-    <br>
-    @endif
+    <x-container>
+      <div class="signin">
+        <p>Already have an account? <a href="{{route('login')}}"  >Sign in</a>.</p>
+      </div>
+   </x-container>
 
-    <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-    <button type="submit" class="registerbtn">Register</button>
-  </div>
-
-  <div class="container signin">
-    <p>Already have an account? <a href="{{route('auth.login-page')}}"  >Sign in</a>.</p>
-  </div>
-</form>
-</body>
-</html>
+  </x-Form>
+@endsection

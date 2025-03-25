@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
+
+@extends('layout.layout')
+
+@section('styles')
 <style>
     * {box-sizing: border-box}
 
@@ -61,7 +57,6 @@
     opacity:1;
     }
 
-    /* Add a blue text color to links */
     a{
     color: dodgerblue;
     }
@@ -69,55 +64,42 @@
         color:red;
     }
 
-    /* Set a grey background color and center the text of the "sign in" section */
     .signin {
     background-color: #f1f1f1;
     text-align: center;
     }
 </style>
-<body>
+@endsection
+
+@section('content')
   <div style="position:absolute; right: 30px; top:30px" >
-      @if(Session::has('error'))
-        <p class="alert alert-danger" role="alert"  >{{ Session::get('error') }}</p>
-      @endif
-  </div>
-  <div style="position:absolute; right: 30px; top:30px" >
+    @if(Session::has('error'))
+          <p class="alert alert-danger" role="alert"  >{{ Session::get('error') }}</p>
+        @endif
+    </div>
+    <div style="position:absolute; right: 30px; top:30px" >
     @if(Session::has('success'))
       <p class="alert alert-success" role="alert"  >{{ Session::get('success') }}</p>
     @endif
   </div>
-<form action="{{route('auth.login-user')}}"  method="POST" class="form-box">
+  <x-Form action="{{route('auth.login-user')}}" method="POST" >
+
+    <x-container>
+      <h1 style="text-align:center" >Login</h1>
+      <p style="text-align:center" >Please fill this form to Login into your account.</p>
+      <hr>
+
+      <x-input-field type="text" placeholder="Enter Email" name="email" id="email" label="Email" value="{{ old('email')}}" />
+      <x-input-field type="password" placeholder="Enter Password" name="password" id="password" label="Password" value="{{ old('password')}}" />
+
+      <x-primaryButton label="Login"/>
+    </x-container>
+
+    <x-container>
+      <div class=" signin">
+        <p>Dont have an account? <a  href="{{route('auth.register-page')}}" >Register</a>.</p>
+      </div>
+    </x-container>
     
-    @csrf
-  <div class="container">
-    <h1 style="text-align:center" >Login</h1>
-    <p style="text-align:center" >Please fill this form to Login into your account.</p>
-    <hr>
-    
-    <label for="email"><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" value="{{ old('email')}}" name="email" id="email" >
-    @if ($errors->has('email'))
-    <span class="error">{{ $errors->first('email') }}</span>
-    <br>
-    <br>
-    @endif
-
-
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" value="{{ old('password')}}"  name="password" id="password" >
-    @if ($errors->has('password'))
-    <span class="error">{{ $errors->first('password') }}</span>
-    <br>
-    <br>
-    @endif
-
-    <button type="submit" class="registerbtn">Login</button>
-  </div>
-
-  <div class="container signin">
-    <p>Dont have an account? <a  href="{{route('auth.register-page')}}" >Register</a>.</p>
-  </div>
-  
-</form>
-</body>
-</html>
+  </x-Form>
+@endsection

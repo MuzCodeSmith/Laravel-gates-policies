@@ -29,7 +29,7 @@ class AuthController extends Controller
             'password'=> $request->password
         ]);
 
-        return redirect()->route('auth.login-page')->with('success', 'Registration successful. Please login.');
+        return redirect()->route('login')->with('success', 'Registration successful. Please login.');
     }
 
     public function loginPage(){
@@ -52,6 +52,6 @@ class AuthController extends Controller
     public function logoutUser(){
         Auth::logout();
         Session::flush();
-        return redirect()->route('auth.login-page')->with('success', 'Logged out successfully');
+        return redirect()->route('login')->with('success', 'Logged out successfully');
     }
 }

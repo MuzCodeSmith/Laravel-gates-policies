@@ -94,8 +94,9 @@
       <p class="alert alert-success" role="alert"  ><?php echo e(Session::get('success')); ?></p>
     <?php endif; ?>
   </div> -->
-<form action="<?php echo e(route('users.posts.store',['user' => Auth::id()])); ?>"  method="POST" class="form-box">
+<form action="<?php echo e(route('users.posts.update',['post' => $userWithPost->id ])); ?>"  method="POST" class="form-box">
     <?php echo csrf_field(); ?>
+    <?php echo method_field('PUT'); ?>
   <div class="container">
     <label for="title"><b>Title</b></label>
     <input type="text" placeholder="Enter Title" value="<?php echo e($userWithPost->title); ?>" name="title" id="title" >
@@ -104,7 +105,6 @@
     <br>
     <br>
     <?php endif; ?>
-
     <label for="content"><b>Content</b></label>
     <textarea value="<?php echo e(old('content')); ?>"  name="content" id="content"><?php echo e($userWithPost->content); ?></textarea>
     <?php if($errors->has('content')): ?>
@@ -112,7 +112,6 @@
     <br>
     <br>
     <?php endif; ?>
-
     <button type="submit" class="registerbtn">Update Post</button>
   </div>
   

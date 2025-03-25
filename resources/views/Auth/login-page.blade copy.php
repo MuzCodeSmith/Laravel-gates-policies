@@ -20,26 +20,18 @@
     /* Add padding to containers */
     .container {
     padding: 16px;
-    width: 50%;
+    width: 35%;
     margin-inline: auto;
     }
 
     /* Full-width input fields */
-    input[type=text], input[type=password], textarea {
+    input[type=text], input[type=password] {
     width: 100%;
     padding: 10px;
     margin: 5px 0 15px 0;
     display: inline-block;
     border: none;
     background: #f1f1f1;
-    }
-    textarea:focus{
-        background-color: #ddd;
-        outline: none;
-    }
-    textarea{
-        resize:none;
-        height:300px;
     }
 
     input[type=text]:focus, input[type=password]:focus {
@@ -84,7 +76,7 @@
     }
 </style>
 <body>
-  <!-- <div style="position:absolute; right: 30px; top:30px" >
+  <div style="position:absolute; right: 30px; top:30px" >
       @if(Session::has('error'))
         <p class="alert alert-danger" role="alert"  >{{ Session::get('error') }}</p>
       @endif
@@ -93,26 +85,37 @@
     @if(Session::has('success'))
       <p class="alert alert-success" role="alert"  >{{ Session::get('success') }}</p>
     @endif
-  </div> -->
-<form action="{{route('users.posts.update',['post' => $userWithPost->id ])}}"  method="POST" class="form-box">
+  </div>
+<form action="{{route('auth.login-user')}}"  method="POST" class="form-box">
+    
     @csrf
-    @method('PUT')
   <div class="container">
-    <label for="title"><b>Title</b></label>
-    <input type="text" placeholder="Enter Title" value="{{$userWithPost->title}}" name="title" id="title" >
-    @if ($errors->has('title'))
-    <span class="error">{{ $errors->first('title') }}</span>
+    <h1 style="text-align:center" >Login</h1>
+    <p style="text-align:center" >Please fill this form to Login into your account.</p>
+    <hr>
+    
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" value="{{ old('email')}}" name="email" id="email" >
+    @if ($errors->has('email'))
+    <span class="error">{{ $errors->first('email') }}</span>
     <br>
     <br>
     @endif
-    <label for="content"><b>Content</b></label>
-    <textarea value="{{ old('content')}}"  name="content" id="content">{{$userWithPost->content}}</textarea>
-    @if ($errors->has('content'))
-    <span class="error">{{ $errors->first('content') }}</span>
+
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" value="{{ old('password')}}"  name="password" id="password" >
+    @if ($errors->has('password'))
+    <span class="error">{{ $errors->first('password') }}</span>
     <br>
     <br>
     @endif
-    <button type="submit" class="registerbtn">Update Post</button>
+
+    <button type="submit" class="registerbtn">Login</button>
+  </div>
+
+  <div class="container signin">
+    <p>Dont have an account? <a  href="{{route('auth.register-page')}}" >Register</a>.</p>
   </div>
   
 </form>

@@ -95,14 +95,15 @@
 <body>
 
 <div class="container">
-    <!-- Success & Error Messages -->
-    @if(Session::has('success'))
-        <p class="alert alert-success">{{ Session::get('success') }}</p>
-    @endif
-    @if(Session::has('error'))
-        <p class="alert alert-danger">{{ Session::get('error') }}</p>
-    @endif
-
+    <div style="position:absolute; right: 30px; top:30px; width:350px" >
+        <!-- Success & Error Messages -->
+        @if(Session::has('success'))
+            <p id="successAlert" class="alert alert-success">{{ Session::get('success') }}</p>
+        @endif
+        @if(Session::has('error'))
+            <p id="errorAlert" class="alert alert-danger">{{ Session::get('error') }}</p>
+        @endif
+    </div>
     <!-- Posts Table -->
     <h2 class="text-center">Your Posts</h2>
     <table class="table table-bordered">
@@ -115,20 +116,23 @@
                 <th>Actions</th>
             </tr>
             @forelse($posts as $post)
+            @can('view-user-posts',$post->user_id)
                 <tr>
-                    <td>{{$post->id}}</td>
-                    <td>{{$post->title}}</td>
-                    <td>{{$post->content}}</td>
+                    <td>{{$loop->iteration}}</td>
+                    <td>{{substr($post->title,0,20)}}...</td>
+                    <td>{{substr($post->content,0,80)}}...</td>
                     <td>{{$post->created_at}}</td>
                     <td>
                         <a href="{{route('users.posts.edit',['post'=> $post->id])}}" class="btn btn-warning btn-sm">Edit</a>
-                        <form method="POST" style="display:inline-block;">
+                        <form action="{{route('users.posts.destroy',['post'=> $post->id])}}" method="POST" style="display:inline-block;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                         </form>
                     </td>
+                    
                 </tr>
+                @endcan
                 @empty
                 <tr>
                     <td colspan="5" class="text-center">No posts found</td>
@@ -140,6 +144,13 @@
         </tbody>
     </table>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+        document.querySelectorAll('.alert').forEach(function(alert) {
+            alert.style.transition = 'opacity 0.5s';
+            alert.style.opacity = '0';
+            setTimeout(() => alert.remove(), 500); // Remove the element after fade out
+        });
+</script>
 </body>
 </html>

@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Admin - Sign up</title>
-</head>
+<?php $__env->startSection('styles'); ?>
 <style>
     * {box-sizing: border-box}
 
@@ -47,7 +40,7 @@
 
     /* Set a style for the submit/register button */
     .registerbtn {
-    background-color: #0D92F4;
+    background-color: #04AA6D;
     color: white;
     padding: 10px 20px;
     margin: 8px 0;
@@ -75,57 +68,189 @@
     text-align: center;
     }
 </style>
-<body>
-<div style="position:absolute; right: 30px; top:30px" >
-        <?php if(Session::has('success')): ?>
-            <p class="alert alert-success" role="alert"  ><?php echo e(Session::get('success')); ?></p>
-        <?php endif; ?>
-</div>
-<form href="<?php echo e(route('auth.register-user')); ?>" method="POST" class="form-box">
-    <?php echo csrf_field(); ?>
-  <div class="container"> 
-    <h2 style="text-align:center" > Register</h2>
-    <p style="text-align:center"  >Please fill in this form to create an account.</p>
-    <hr>
-    <label for="name"><b>Username</b></label>
-    <input type="text" placeholder="Enter Name" value="<?php echo e(old('name')); ?>" name="name" id="name">
-    <?php if($errors->has('name')): ?>
-    <span class="error"><?php echo e($errors->first('name')); ?></span>
-    <br>
-    <br>
-    <?php endif; ?>
+<?php $__env->stopSection(); ?>
 
-    <label for="email"><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" value="<?php echo e(old('email')); ?>" name="email" id="email" >
-    <?php if($errors->has('email')): ?>
-    <span class="error"><?php echo e($errors->first('email')); ?></span>
-    <br>
-    <br>
-    <?php endif; ?>
+<?php $__env->startSection('content'); ?>
+  <div style="position:absolute; right: 30px; top:30px" >
+      <?php if(Session::has('error')): ?>
+            <p class="alert alert-danger" role="alert"  ><?php echo e(Session::get('error')); ?></p>
+          <?php endif; ?>
+      </div>
+      <div style="position:absolute; right: 30px; top:30px" >
+      <?php if(Session::has('success')): ?>
+        <p class="alert alert-success" role="alert"  ><?php echo e(Session::get('success')); ?></p>
+      <?php endif; ?>
+  </div>             
+  <?php if (isset($component)) { $__componentOriginal18ad2e0d264f9740dc73fff715357c28 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal18ad2e0d264f9740dc73fff715357c28 = $attributes; } ?>
+<?php $component = App\View\Components\Form::resolve(['action' => ''.e(route('auth.register-user')).'','method' => 'POST'] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('Form'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\App\View\Components\Form::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+    <?php if (isset($component)) { $__componentOriginalf79b4dba555e8b4113e3494d784cf4e9 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalf79b4dba555e8b4113e3494d784cf4e9 = $attributes; } ?>
+<?php $component = App\View\Components\Container::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('container'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\App\View\Components\Container::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+      <h2 style="text-align:center" > Register</h2>
+      <p style="text-align:center"  >Please fill in this form to create an account.</p>
+      <hr>
 
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" value="<?php echo e(old('password')); ?>"  name="password" id="password" >
-    <?php if($errors->has('password')): ?>
-    <span class="error"><?php echo e($errors->first('password')); ?></span>
-    <br>
-    <br>
-    <?php endif; ?>
+      <?php if (isset($component)) { $__componentOriginal767b2fe2f313e877004be11b5e91bb94 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal767b2fe2f313e877004be11b5e91bb94 = $attributes; } ?>
+<?php $component = App\View\Components\InputField::resolve(['type' => 'text','placeholder' => 'enter username','name' => 'name','id' => 'name','label' => 'Username','value' => ''.e(old('name')).''] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('input-field'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\App\View\Components\InputField::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal767b2fe2f313e877004be11b5e91bb94)): ?>
+<?php $attributes = $__attributesOriginal767b2fe2f313e877004be11b5e91bb94; ?>
+<?php unset($__attributesOriginal767b2fe2f313e877004be11b5e91bb94); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal767b2fe2f313e877004be11b5e91bb94)): ?>
+<?php $component = $__componentOriginal767b2fe2f313e877004be11b5e91bb94; ?>
+<?php unset($__componentOriginal767b2fe2f313e877004be11b5e91bb94); ?>
+<?php endif; ?>
+      <?php if (isset($component)) { $__componentOriginal767b2fe2f313e877004be11b5e91bb94 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal767b2fe2f313e877004be11b5e91bb94 = $attributes; } ?>
+<?php $component = App\View\Components\InputField::resolve(['type' => 'text','placeholder' => 'Enter Email','name' => 'email','id' => 'email','label' => 'Email','value' => ''.e(old('email')).''] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('input-field'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\App\View\Components\InputField::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal767b2fe2f313e877004be11b5e91bb94)): ?>
+<?php $attributes = $__attributesOriginal767b2fe2f313e877004be11b5e91bb94; ?>
+<?php unset($__attributesOriginal767b2fe2f313e877004be11b5e91bb94); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal767b2fe2f313e877004be11b5e91bb94)): ?>
+<?php $component = $__componentOriginal767b2fe2f313e877004be11b5e91bb94; ?>
+<?php unset($__componentOriginal767b2fe2f313e877004be11b5e91bb94); ?>
+<?php endif; ?>
+      <?php if (isset($component)) { $__componentOriginal767b2fe2f313e877004be11b5e91bb94 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal767b2fe2f313e877004be11b5e91bb94 = $attributes; } ?>
+<?php $component = App\View\Components\InputField::resolve(['type' => 'password','placeholder' => 'Enter Password','name' => 'password','id' => 'password','label' => 'Password','value' => ''.e(old('password')).''] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('input-field'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\App\View\Components\InputField::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal767b2fe2f313e877004be11b5e91bb94)): ?>
+<?php $attributes = $__attributesOriginal767b2fe2f313e877004be11b5e91bb94; ?>
+<?php unset($__attributesOriginal767b2fe2f313e877004be11b5e91bb94); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal767b2fe2f313e877004be11b5e91bb94)): ?>
+<?php $component = $__componentOriginal767b2fe2f313e877004be11b5e91bb94; ?>
+<?php unset($__componentOriginal767b2fe2f313e877004be11b5e91bb94); ?>
+<?php endif; ?>
+      <?php if (isset($component)) { $__componentOriginal767b2fe2f313e877004be11b5e91bb94 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal767b2fe2f313e877004be11b5e91bb94 = $attributes; } ?>
+<?php $component = App\View\Components\InputField::resolve(['type' => 'password','placeholder' => 'Confirm Password','name' => 'password_confirmation','id' => 'confirm_password','label' => 'Confirm Password','value' => ''.e(old('password_confirmation')).''] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('input-field'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\App\View\Components\InputField::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal767b2fe2f313e877004be11b5e91bb94)): ?>
+<?php $attributes = $__attributesOriginal767b2fe2f313e877004be11b5e91bb94; ?>
+<?php unset($__attributesOriginal767b2fe2f313e877004be11b5e91bb94); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal767b2fe2f313e877004be11b5e91bb94)): ?>
+<?php $component = $__componentOriginal767b2fe2f313e877004be11b5e91bb94; ?>
+<?php unset($__componentOriginal767b2fe2f313e877004be11b5e91bb94); ?>
+<?php endif; ?>
+      
+      <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+      <?php if (isset($component)) { $__componentOriginal738438d805b9baf2d1402d7b79c4fcbf = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal738438d805b9baf2d1402d7b79c4fcbf = $attributes; } ?>
+<?php $component = App\View\Components\PrimaryButton::resolve(['label' => 'Register'] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('primaryButton'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\App\View\Components\PrimaryButton::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal738438d805b9baf2d1402d7b79c4fcbf)): ?>
+<?php $attributes = $__attributesOriginal738438d805b9baf2d1402d7b79c4fcbf; ?>
+<?php unset($__attributesOriginal738438d805b9baf2d1402d7b79c4fcbf); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal738438d805b9baf2d1402d7b79c4fcbf)): ?>
+<?php $component = $__componentOriginal738438d805b9baf2d1402d7b79c4fcbf; ?>
+<?php unset($__componentOriginal738438d805b9baf2d1402d7b79c4fcbf); ?>
+<?php endif; ?>
+     <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalf79b4dba555e8b4113e3494d784cf4e9)): ?>
+<?php $attributes = $__attributesOriginalf79b4dba555e8b4113e3494d784cf4e9; ?>
+<?php unset($__attributesOriginalf79b4dba555e8b4113e3494d784cf4e9); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalf79b4dba555e8b4113e3494d784cf4e9)): ?>
+<?php $component = $__componentOriginalf79b4dba555e8b4113e3494d784cf4e9; ?>
+<?php unset($__componentOriginalf79b4dba555e8b4113e3494d784cf4e9); ?>
+<?php endif; ?>
 
-    <label for="psw-repeat"><b>Confirm Password</b></label>
-    <input type="password" placeholder="Confirm Password" value="<?php echo e(old('password_confirmation')); ?>"  name="password_confirmation" id="confirm_password" >
-    <?php if($errors->has('password_confirmation')): ?>
-    <span class="error"><?php echo e($errors->first('password_confirmation')); ?></span>
-    <br>
-    <br>
-    <?php endif; ?>
+    <?php if (isset($component)) { $__componentOriginalf79b4dba555e8b4113e3494d784cf4e9 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalf79b4dba555e8b4113e3494d784cf4e9 = $attributes; } ?>
+<?php $component = App\View\Components\Container::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('container'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\App\View\Components\Container::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+      <div class="signin">
+        <p>Already have an account? <a href="<?php echo e(route('login')); ?>"  >Sign in</a>.</p>
+      </div>
+    <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalf79b4dba555e8b4113e3494d784cf4e9)): ?>
+<?php $attributes = $__attributesOriginalf79b4dba555e8b4113e3494d784cf4e9; ?>
+<?php unset($__attributesOriginalf79b4dba555e8b4113e3494d784cf4e9); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalf79b4dba555e8b4113e3494d784cf4e9)): ?>
+<?php $component = $__componentOriginalf79b4dba555e8b4113e3494d784cf4e9; ?>
+<?php unset($__componentOriginalf79b4dba555e8b4113e3494d784cf4e9); ?>
+<?php endif; ?>
 
-    <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-    <button type="submit" class="registerbtn">Register</button>
-  </div>
-
-  <div class="container signin">
-    <p>Already have an account? <a href="<?php echo e(route('auth.login-page')); ?>"  >Sign in</a>.</p>
-  </div>
-</form>
-</body>
-</html><?php /**PATH D:\xampp\htdocs\gates-policies\resources\views/Auth/register-page.blade.php ENDPATH**/ ?>
+   <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal18ad2e0d264f9740dc73fff715357c28)): ?>
+<?php $attributes = $__attributesOriginal18ad2e0d264f9740dc73fff715357c28; ?>
+<?php unset($__attributesOriginal18ad2e0d264f9740dc73fff715357c28); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal18ad2e0d264f9740dc73fff715357c28)): ?>
+<?php $component = $__componentOriginal18ad2e0d264f9740dc73fff715357c28; ?>
+<?php unset($__componentOriginal18ad2e0d264f9740dc73fff715357c28); ?>
+<?php endif; ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout.layout', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\xampp\htdocs\gates-policies\resources\views/Auth/register-page.blade.php ENDPATH**/ ?>

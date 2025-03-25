@@ -64,11 +64,21 @@
         <ul>
             <li>Home</li>
             <li>
-                <a href="<?php echo e(route('users.posts.create',['user' => Auth::id()])); ?>">create post</a>
+                <a href="<?php echo e(route('users.posts.create',['user' =>Auth::check() ?  Auth::id() : 'Guest' ])); ?>">create post</a>
             </li>
             <li>
-                <a href="<?php echo e(route('user.posts.all',['user' => Auth::id()])); ?>">your posts</a>
+                <a href="<?php echo e(route('user.posts.all',['user' => Auth::check() ? Auth::id() : 'Guest'])); ?>">your posts</a>
             </li>
+            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('isAdmin')): ?>
+            <li>
+                <a href="<?php echo e(route('user.posts.all',['user' => Auth::check() ? Auth::id() : 'Guest'])); ?>">Manage Users</a>
+            </li>
+            <?php endif; ?>
+            <!-- <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->denies('isAdmin')): ?>
+            <li>
+                <a href="<?php echo e(route('user.posts.all',['user' => Auth::check() ? Auth::id() : 'Guest'])); ?>">Manage Admins</a>
+            </li>
+            <?php endif; ?> -->
             <li>Settings</li>
             <li>
                 <a href="<?php echo e(route('auth.logout-user')); ?>">Logout</a>
